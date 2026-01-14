@@ -37,3 +37,36 @@ The FastAPI server provides the following API routes:
 - `POST /tasks`: Adds a task to the task list. The request body should contain the task details.
 
 - `GET /tasks`: Retrieves the task list.
+
+
+# Anythink Market - Task Migration
+
+We have successfully migrated our core Task Management service from a Python-based FastAPI server to a **Node.js Express** server to improve scalability and integration with our frontend ecosystem.
+
+## 🚀 Architecture Update
+The backend now operates using a dual-server architecture managed via Docker:
+* **Node.js Server (Primary Tasks API):** Handles all task-related logic.
+* **Python Server:** Maintained for legacy support and specific utility functions.
+
+## 🛠 Getting Started
+
+### Prerequisites
+- Docker and Docker Compose installed.
+
+### Running the Services
+To spin up both the Node.js and Python servers, run:
+```bash
+docker compose up --build
+
+
+Service,Language,Port,Endpoint,Description
+Task Service,Node.js,8001,GET /tasks,Returns the list of futuristic tasks.
+Task Service,Node.js,8001,POST /tasks,Adds a new task to the list.
+Legacy Service,Python,8000,GET /,Returns Hello World.
+
+
+# Get all tasks
+curl http://localhost:8001/tasks
+
+# Add a new task
+curl -X POST http://localhost:8001/tasks -H "Content-Type: application/json" -d '{"text": "Visit 3026"}'
